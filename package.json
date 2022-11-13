@@ -10,7 +10,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "lint": "eslint --fix --ext .js,.ts,.astro .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@astrojs/tailwind": "^2.1.2",
@@ -22,6 +23,7 @@
     "eslint": "^8.27.0",
     "eslint-plugin-astro": "^0.21.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",
+    "husky": "^8.0.2",
     "prettier": "^2.7.1",
     "prettier-plugin-astro": "^0.7.0"
   }
