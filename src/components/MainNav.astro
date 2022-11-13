@@ -6,7 +6,7 @@ const links = [
     textContent: "🏠 home-page 🏡",
   },
   {
-    href: "/work-stuff",
+    href: "/projects-and-works",
     textContent: "💼 projects-and-works 🏢",
   },
   {
@@ -20,15 +20,17 @@ const links = [
 ];
 ---
 
-<nav class="w-60 mt-2 rounded-tl-lg bg-gray-800">
+<nav class="w-60 mt-2 rounded-tl-lg bg-gray-200 dark:bg-gray-800">
   <ul class="mt-4 ml-2">
     {
       links.map(({ href, textContent }) => (
         <li class="w-full mb-0.5">
           <a
             href={href}
-            class={`block py-1 px-2 w-full h-full hover:bg-gray-700 hover:bg-opacity-80  before:content-['#'] rounded-l-md ${
-              href === pathname ? "bg-gray-700 hover:bg-opacity-100" : ""
+            class={`block py-1 px-2 w-full h-full hover:bg-gray-50 hover:dark:bg-gray-700 hover:bg-opacity-80  before:content-['#'] rounded-l-md ${
+              href === pathname
+                ? "bg-gray-50 dark:bg-gray-700 hover:bg-opacity-100"
+                : ""
             }`}
           >
             {textContent}

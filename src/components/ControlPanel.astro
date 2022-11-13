@@ -4,7 +4,7 @@ const circleClass =
 ---
 
 <div
-  class="w-20 bg-gray-900 grid grid-flow-row content-start justify-items-center gap-2 py-2"
+  class="w-20 grid grid-flow-row content-start justify-items-center gap-2 py-2"
 >
   <a href="/">
     <img
@@ -14,15 +14,30 @@ const circleClass =
       class={circleClass}
     />
   </a>
-  <div class="w-[40%] border-b-2 border-gray-600"></div>
+  <div class="w-[40%] border-b-2 border-gray-700"></div>
   <button
     aria-hidden="true"
     title="dark-mode"
-    class={`${circleClass} bg-gray-600`}>🌙</button
+    id="dark-mode-toggle"
+    class={`${circleClass} bg-slate-500`}>🌙</button
   >
   <button
     aria-hidden="true"
     title="light-mode"
-    class={`${circleClass} bg-gray-200`}>☀️</button
+    id="light-mode-toggle"
+    class={`${circleClass} bg-orange-200`}>☀️</button
   >
 </div>
+
+<script>
+  document.getElementById("dark-mode-toggle")?.addEventListener("click", () => {
+    document.documentElement.classList.add("dark");
+    localStorage.setItem("theme", "dark");
+  });
+  document
+    .getElementById("light-mode-toggle")
+    ?.addEventListener("click", () => {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    });
+</script>

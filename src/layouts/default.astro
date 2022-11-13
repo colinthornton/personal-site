@@ -10,16 +10,32 @@ import MainNav from "../components/MainNav.astro";
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>colin-thornton</title>
+    <script>
+      switch (localStorage.getItem("theme")) {
+        case "dark":
+          document.documentElement.classList.add("dark");
+          break;
+        case "light":
+          document.documentElement.classList.remove("dark");
+          break;
+        default:
+          if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+            document.documentElement.classList.add("dark");
+          } else {
+            document.documentElement.classList.remove("dark");
+          }
+      }
+    </script>
   </head>
   <body
-    class="w-full h-full grid grid-cols-[auto,auto,1fr] grid-rows-[auto,1fr] text-gray-50 bg-gray-900"
+    class="w-full h-full grid grid-cols-[auto,auto,1fr] grid-rows-[auto,1fr] text-gray-900 bg-gray-300 dark:text-gray-50 dark:bg-gray-900"
   >
     <header class="col-span-3">
       <h1 class="ml-2 text-xl">colin-thornton</h1>
     </header>
     <ControlPanel />
     <MainNav />
-    <main class="bg-gray-700 mt-2">
+    <main class="bg-gray-50 dark:bg-gray-700 mt-2">
       <slot />
     </main>
   </body>
