@@ -1,15 +1,16 @@
 ---
+import ControlPanel from "../components/ControlPanel.astro";
 ---
 
-<html lang="en">
+<html lang="en" class="w-full h-full">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
+    <title>colin-thornton</title>
   </head>
-  <body>
-    <h1>Astro</h1>
+  <body class="w-full h-full grid grid-cols-[auto,auto,1fr]">
+    <ControlPanel />
   </body>
 </html>

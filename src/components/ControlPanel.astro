@@ -1,0 +1,28 @@
+---
+const circleClass =
+  "w-12 h-12 rounded-[50%] hover:rounded-2xl transition-[border-radius] duration-200 active:translate-y-px";
+---
+
+<div
+  class="w-20 bg-gray-800 grid grid-flow-row content-start justify-items-center gap-2 py-2"
+>
+  <a href="/">
+    <img
+      src="https://avatars.githubusercontent.com/u/17635021?v=4"
+      alt="colin-thornton"
+      title="colin-thornton"
+      class={circleClass}
+    />
+  </a>
+  <div class="w-[40%] border-b-2 border-gray-600"></div>
+  <button
+    aria-hidden="true"
+    title="dark-mode"
+    class={`${circleClass} bg-gray-600`}>🌙</button
+  >
+  <button
+    aria-hidden="true"
+    title="light-mode"
+    class={`${circleClass} bg-gray-200`}>☀️</button
+  >
+</div>
