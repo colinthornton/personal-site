@@ -9,7 +9,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "lint": "eslint --fix --ext .js,.ts,.astro .",
+    "lint": "eslint --fix --ext .js,.cjs,.mjs,.ts,.astro .",
     "format": "prettier --write .",
     "prepare": "husky install"
   },

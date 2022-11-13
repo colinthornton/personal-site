@@ -1,5 +1,9 @@
 module.exports = {
   extends: ["plugin:astro/jsx-a11y-recommended"],
+  parserOptions: {
+    sourceType: "module",
+    ecmaVersion: 2022,
+  },
   overrides: [
     {
       files: ["*.astro"],
