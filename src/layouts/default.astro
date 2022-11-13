@@ -1,0 +1,26 @@
+---
+import ControlPanel from "../components/ControlPanel.astro";
+import MainNav from "../components/MainNav.astro";
+---
+
+<html lang="en" class="w-full h-full">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>colin-thornton</title>
+  </head>
+  <body
+    class="w-full h-full grid grid-cols-[auto,auto,1fr] grid-rows-[auto,1fr] text-gray-50 bg-gray-900"
+  >
+    <header class="col-span-3">
+      <h1 class="ml-2 text-xl">colin-thornton</h1>
+    </header>
+    <ControlPanel />
+    <MainNav />
+    <main class="bg-gray-700 mt-2">
+      <slot />
+    </main>
+  </body>
+</html>

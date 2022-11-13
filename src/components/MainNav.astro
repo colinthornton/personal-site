@@ -1,0 +1,40 @@
+---
+const { pathname } = new URL(Astro.request.url);
+const links = [
+  {
+    href: "/",
+    textContent: "🏠 home-page 🏡",
+  },
+  {
+    href: "/work-stuff",
+    textContent: "💼 projects-and-works 🏢",
+  },
+  {
+    href: "/curriculum-vitae",
+    textContent: "📄 curriculum-vitae 🪶",
+  },
+  {
+    href: "/free-code-camp",
+    textContent: "🧑‍💻 free-code-camp 🏕️",
+  },
+];
+---
+
+<nav class="w-60 mt-2 rounded-tl-lg bg-gray-800">
+  <ul class="mt-4 ml-2">
+    {
+      links.map(({ href, textContent }) => (
+        <li class="w-full mb-0.5">
+          <a
+            href={href}
+            class={`block py-1 px-2 w-full h-full hover:bg-gray-700 hover:bg-opacity-80  before:content-['#'] rounded-l-md ${
+              href === pathname ? "bg-gray-700 hover:bg-opacity-100" : ""
+            }`}
+          >
+            {textContent}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
