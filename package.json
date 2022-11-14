@@ -14,6 +14,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@astrojs/prefetch": "^0.1.1",
     "@astrojs/tailwind": "^2.1.2",
     "astro": "^1.6.7",
     "tailwindcss": "^3.2.4"
