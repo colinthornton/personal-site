@@ -1,4 +1,6 @@
 ---
+const { class: className } = Astro.props;
+
 const { pathname } = new URL(Astro.request.url);
 const links = [
   {
@@ -27,7 +29,12 @@ function isActive(href: string) {
 }
 ---
 
-<nav class="w-60 mt-2 rounded-tl-lg bg-gray-200 dark:bg-gray-800">
+<nav
+  class:list={[
+    "w-60 h-full rounded-tl-lg bg-gray-200 dark:bg-gray-800",
+    className,
+  ]}
+>
   <ul class="mt-4 ml-2">
     {
       links.map(({ href, textContent }) => (
