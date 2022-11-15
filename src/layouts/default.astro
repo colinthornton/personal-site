@@ -3,7 +3,7 @@ import ControlPanel from "../components/ControlPanel.astro";
 import MainNav from "../components/MainNav.astro";
 ---
 
-<html lang="en" class="w-full h-full">
+<html lang="en" class="dark w-full h-full">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -11,7 +11,6 @@ import MainNav from "../components/MainNav.astro";
     <meta name="generator" content={Astro.generator} />
     <title>colin-thornton</title>
     <script>
-      document.documentElement.classList.add("dark");
       const savedTheme = localStorage.getItem("theme");
       if (
         savedTheme === "light" ||
@@ -23,49 +22,114 @@ import MainNav from "../components/MainNav.astro";
     </script>
   </head>
   <body
-    class="w-full max-w-full overflow-x-hidden h-full grid grid-cols-1 sm:grid-cols-[auto,auto,1fr] grid-rows-[auto,1fr] text-gray-900 bg-gray-300 dark:text-gray-50 dark:bg-gray-900"
+    class="w-full h-full text-gray-900 bg-gray-300 dark:text-gray-50 dark:bg-gray-900"
   >
-    <header class="col-span-3 flex items-center justify-between py-2 px-3">
-      <h1 class="text-xl">colin-thornton</h1>
-      <button
-        id="menu-toggle"
-        class="w-6 h-6 grid grid-rows-3 gap-1.5 sm:hidden"
+    <div
+      class="w-full h-full overflow-x-hidden grid grid-cols-[auto,auto,1fr] grid-rows-[auto,1fr] touch-none"
+    >
+      <header class="col-span-3 flex items-center justify-between py-2 px-3">
+        <h1 class="text-xl">colin-thornton</h1>
+      </header>
+      <ControlPanel class="" />
+      <MainNav class="" />
+      <main
+        class="min-w-[100vw] sm:min-w-[unset] bg-gray-50 dark:bg-gray-700 duration-200 ease-in transition-transform relative"
       >
-        <span class="bg-gray-900 dark:bg-gray-50 rounded-sm"></span>
-        <span class="bg-gray-900 dark:bg-gray-50 rounded-sm"></span>
-        <span class="bg-gray-900 dark:bg-gray-50 rounded-sm"></span>
-      </button>
-    </header>
-    <ControlPanel class="fixed top-11 sm:static" />
-    <MainNav class="fixed top-11 left-20 sm:static" />
-    <main class="bg-gray-50 dark:bg-gray-700 relative z-10">
-      <slot />
-    </main>
+        <button
+          id="menu-toggle"
+          class="w-4 h-4 grid grid-rows-3 gap-1 absolute top-2 left-2 sm:hidden z-10"
+        >
+          <div class="h-full bg-gray-900 dark:bg-gray-50 rounded-sm"></div>
+          <div class="h-full bg-gray-900 dark:bg-gray-50 rounded-sm"></div>
+          <div class="h-full bg-gray-900 dark:bg-gray-50 rounded-sm"></div>
+        </button>
+        <slot />
+      </main>
+    </div>
   </body>
 </html>
 
 <script>
-  document.getElementById("menu-toggle")?.addEventListener("click", () => {
-    document.documentElement.classList.toggle("menu-open");
-    document.documentElement.style.setProperty(
-      "--menu-x-offset",
-      `${document.querySelector("nav")?.getBoundingClientRect().right}px`
-    );
-  });
-</script>
+  const main = document.querySelector("main") as HTMLElement;
+  const menuToggle = document.getElementById(
+    "menu-toggle"
+  ) as HTMLButtonElement;
+  let pointerId: number | null = null;
+  let startX = 0;
+  let menuOpen = true;
+  let timeoutId: number;
 
-<style>
-  main {
-    transition: transform 200ms ease-in;
-    transform: translate3d(0, 0, 0);
+  if (isMobileSize()) {
+    main.style.transition = "none";
+    closeMenu();
+    main.style.removeProperty("transition");
   }
-  .menu-open main {
-    transform: translate3d(var(--menu-x-offset, 100%), 0, 0);
+  document.body.addEventListener("pointerdown", initiateSwipe);
+  document.body.addEventListener("pointermove", updateSwipe);
+  document.body.addEventListener("pointerup", endSwipe);
+  menuToggle.addEventListener("click", () => {
+    menuOpen ? closeMenu() : openMenu();
+  });
+  window.addEventListener("resize", () => {
+    if (!isMobileSize() && !menuOpen) openMenu();
+  });
+
+  function initiateSwipe(e: PointerEvent) {
+    if (pointerId || !isMobileSize()) return;
+    pointerId = e.pointerId;
+    startX = e.x;
+    main.style.transition = "none";
   }
-  @screen sm {
-    .menu-open main {
-      transition: none;
-      transform: none;
+
+  function updateSwipe(e: PointerEvent) {
+    if (e.pointerId !== pointerId) return;
+    window.clearTimeout(timeoutId);
+    const offset = clamp(
+      -main.offsetLeft,
+      0,
+      menuOpen ? (startX - e.x) * -1 : -main.offsetLeft + e.x - startX
+    );
+    main.style.transform = `translate3d(${offset}px, 0, 0)`;
+    timeoutId = window.setTimeout(() => endSwipe(e), 1000);
+  }
+
+  function endSwipe(e: PointerEvent) {
+    if (e.pointerId !== pointerId) return;
+    main.style.removeProperty("transition");
+    const diff = e.x - startX;
+    if (menuOpen) {
+      if (diff <= -100) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    } else {
+      if (diff >= 100) {
+        openMenu();
+      } else {
+        closeMenu();
+      }
     }
+    pointerId = null;
   }
-</style>
+
+  function openMenu() {
+    main.style.removeProperty("transform");
+    menuOpen = true;
+  }
+
+  function closeMenu() {
+    main.style.transform = `translate3d(${main.offsetLeft * -1}px, 0, 0)`;
+    menuOpen = false;
+  }
+
+  function clamp(min: number, max: number, value: number) {
+    if (value < min) return min;
+    if (value > max) return max;
+    return value;
+  }
+
+  function isMobileSize() {
+    return window.innerWidth < 640;
+  }
+</script>
