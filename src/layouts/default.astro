@@ -25,7 +25,7 @@ import MainNav from "../components/MainNav.astro";
     class="w-full h-full text-gray-900 bg-gray-300 dark:text-gray-50 dark:bg-gray-900"
   >
     <div
-      class="w-full h-full overflow-x-hidden grid grid-cols-[auto,auto,1fr] grid-rows-[auto,1fr] touch-none"
+      class="w-full h-full overflow-hidden grid grid-cols-[auto,auto,1fr] grid-rows-[auto,1fr]"
     >
       <header class="col-span-3 flex items-center justify-between py-2 px-3">
         <h1 class="text-xl">colin-thornton</h1>
@@ -33,7 +33,7 @@ import MainNav from "../components/MainNav.astro";
       <ControlPanel class="" />
       <MainNav class="" />
       <main
-        class="min-w-[100vw] sm:min-w-[unset] bg-gray-50 dark:bg-gray-700 duration-200 ease-in transition-transform relative"
+        class="min-w-[100vw] sm:min-w-[unset] bg-gray-50 dark:bg-gray-700 duration-200 ease-in transition-transform relative overflow-auto"
       >
         <button
           id="menu-toggle"

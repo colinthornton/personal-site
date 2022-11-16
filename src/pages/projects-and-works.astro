@@ -1,5 +1,80 @@
 ---
+import { Image } from "@astrojs/image/components";
 import Default from "../layouts/default.astro";
+
+const works = [
+  {
+    title: "Pokecolo Official Item Library",
+    date: "2022-11",
+    type: "work",
+    image: import("../assets/item-library.png"),
+    link: "https://library.pokecolo.com",
+    blurb: "",
+  },
+  {
+    title: "Portfolio Site",
+    date: "2022-05",
+    type: "personal",
+    image: import("../assets/alec-danz.png"),
+    link: "https://alecdanz.github.io",
+    blurb: "",
+  },
+  {
+    title: "Pokecolo Official Site",
+    date: "2022-04",
+    type: "work",
+    image: import("../assets/pokecolo-official.png"),
+    link: "https://pokecolo.jp",
+    blurb: "",
+  },
+  {
+    title: "That's midnight in...",
+    data: "2022-01",
+    type: "personal",
+    image: import("../assets/thats-midnight-in.png"),
+    link: "https://colinthornton.github.io/thats-midnight-in",
+    blurb: "",
+  },
+];
+
+function getTypeEmoji(work: typeof works[number]) {
+  switch (work.type) {
+    case "work":
+      return "💼";
+    case "personal":
+      return "🧑‍💻";
+    default:
+      return "";
+  }
+}
 ---
 
-<Default />
+<Default>
+  <header><h2>💼 projects-and-works 🏢</h2></header>
+  <div class="w-full p-4">
+    {
+      works.map((work) => (
+        <article class="w-full grid grid-cols-[auto,1fr] bg-zinc-900 bg-opacity-20 rounded-lg p-4 gap-4 mb-4">
+          <div
+            class:list={[
+              "w-16 h-16 rounded-full grid place-items-center bg-gray-300 bg-opacity-40",
+            ]}
+            title={work.type}
+          >
+            {getTypeEmoji(work)}
+          </div>
+          <div>
+            <header class="flex gap-2">
+              <h3>{work.title}</h3>
+              <time datetime={work.date}>{work.date}</time>
+            </header>
+            <Image src={work.image} alt="" class="w-full max-w-md" />
+            <p>
+              <a href={work.link}>{work.link}</a>
+            </p>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</Default>
